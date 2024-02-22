@@ -12,7 +12,7 @@
     <hr>
     {% for id in books %}
     <h2>書名:{{books[id]["name"]}}</h2>
-    <p>價格:{{books[id]["price"]}}</p>
+    <h3>價格:{{books[id]["price"]}}</h3>
     <img src="{{books[id]['image_url']}}" alt="">
     <hr>
     {% endfor %}
