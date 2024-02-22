@@ -44,8 +44,8 @@ def get_books():
         },
     }
 
-    for id in booktachi:
-        print(booktachi[id]["name"], booktachi[id]["price"])
+    # for id in booktachi:
+    #     print(f'{id}:名稱:{booktachi[id]["name"]}價格:{booktachi[id]["price"]}')
 
     return render_template("books.html", books=booktachi)
 
