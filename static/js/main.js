@@ -6,7 +6,11 @@ $("#update").click(() => {
     drawPM25();
 });
 
-
+//監聽功能
+$("#select_county").change(() => {
+    county = $("#select_county").val();
+    console.log(county);
+});
 
 // 呼叫後端資料跟繪製
 drawPM25();
