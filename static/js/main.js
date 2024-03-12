@@ -1,5 +1,6 @@
 // 取得主繪製區域
-const myChart = echarts.init(document.getElementById('main'));
+const chart1 = echarts.init(document.getElementById('main'));
+const chart2 = echarts.init(document.getElementById('six'));
 
 $("#update").click(() => {
     drawPM25();
@@ -12,7 +13,7 @@ drawPM25();
 
 // 取得後端資料
 function drawPM25() {
-    myChart.showLoading();
+    chart1.showLoading();
     $.ajax(
         {
             url: "/pm25-data",
@@ -32,12 +33,40 @@ function drawPM25() {
 
                 //console.log(result);
                 //繪製對應區塊並給予必要參數
-                drawChat(myChart, result["datetime"], "PM2.5", result["site"], result["pm25"])
-                myChart.hideLoading();
+                drawChat(chart1, result["datetime"], "PM2.5", result["site"], result["pm25"])
+                chart1.hideLoading();
+
+                this.setTimeout(() => {
+                    //繪製6都
+                    drawSixPM25();
+                }, 1000);
+
             },
             error: () => {
                 alert("讀取失敗@@,請稍後在試!");
-                myChart.hideLoading();
+                chart1.hideLoading();
+
+            }
+        }
+    )
+}
+
+function drawSixPM25() {
+    chart2.showLoading();
+    $.ajax(
+        {
+            url: "/six-pm25-data",
+            type: "GET",
+            dataType: "json",
+            success: (result) => {
+
+                //繪製對應區塊並給予必要參數
+                drawChat(chart2, "六都pm2.5平均值", "PM2.5", result["site"], result["pm25"])
+                chart2.hideLoading();
+            },
+            error: () => {
+                alert("讀取失敗@@,請稍後在試!");
+                chart1.hideLoading();
 
             }
         }
